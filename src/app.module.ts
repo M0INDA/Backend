@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataBaseConfig } from './database/DataBaseConfig';
+// import { DataBaseConfig } from './database/DataBaseConfig';
 import { ConfigModule } from '@nestjs/config'
 import { TestModule } from './test/test.module';
 import { UserModule } from './users/users.module';
@@ -14,8 +14,8 @@ import { UserModule } from './users/users.module';
       // envFilePath: [`${__dirname}/.env`],
       envFilePath: [`.env`],
     }),
-    TypeOrmModule.forRootAsync(DataBaseConfig),
-    TestModule,
+    // TypeOrmModule.forRootAsync(DataBaseConfig),
+    // TestModule,
     // UserModule,
 
   ],
