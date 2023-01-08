@@ -1,19 +1,49 @@
-# Step 1 ts 를 js로 빌드 
-FROM node:18 AS builder
+
+###################
+# BUILD FOR LOCAL DEVELOPMENT
+###################
+
+FROM node:18-alpine As development
 
 WORKDIR /app
-COPY package*.json ./
 
-COPY . .
+COPY --chown=node:node package*.json ./
 
-RUN npm install
+RUN npm ci
+
+COPY --chown=node:node . .
+
+USER node
+
+###################
+# BUILD FOR PRODUCTION
+###################
+
+FROM node:18-alpine As build
+
+WORKDIR /app
+
+COPY --chown=node:node package*.json ./
+
+COPY --chown=node:node --from=development /app/node_modules ./node_modules
+
+COPY --chown=node:node . .
+
 RUN npm run build
 
-# Step 2 컴파일된 app을 실행
-FROM node:18-alpine
-WORKDIR /app
+ENV NODE_ENV production
 
-## Step 1의 builder에서 build된 프로젝트를 가져온다
-COPY --from=builder /app ./
+RUN npm ci --only=production && npm cache clean --force
 
-CMD ["npm", "run", "start:prod"]
+USER node
+
+###################
+# PRODUCTION
+###################
+
+FROM node:18-alpine As production
+
+COPY --chown=node:node --from=build /app/node_modules ./node_modules
+COPY --chown=node:node --from=build /app/dist ./dist
+
+CMD [ "node", "dist/main.js" ]
