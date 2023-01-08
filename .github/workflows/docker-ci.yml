@@ -1,3 +1,4 @@
+
 name: build and deploy
 
 on:
@@ -41,7 +42,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd project_dir
-            docker system prune -a --volumes -f
-            docker compose pull -q
-            docker compose up --force-recreate --build -d --quiet-pull 2>log.out
-            cat log.out
+            sudo docker stop `sudo docker ps -aq` # 컨테이너 전부 중지
+            sudo docker rm `sudo docker ps -a -q` # 컨테이너 전부 삭제
+            sudo docker pull kwonga96/sideimg:latest # 이미지 다운로드
+            sudo docker run -d -p80:3000 kwonga96/sideimg # 이미지 실행
