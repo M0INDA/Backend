@@ -4,6 +4,7 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Unique,
+    CreateDateColumn
   } from 'typeorm';
   
 
@@ -13,28 +14,25 @@ import {
     @PrimaryGeneratedColumn('increment')
     userId:number;
 
-    @Column({nullable: false, length: 40})
+    @Column({nullable: false, length: 40, unique:true})
     email:string;
 
-    @Column({nullable: false, length: 40})
-    nickName:string;
+    @Column({nullable: false, length: 40, unique:true })
+    nickname:string;
 
     @Column({nullable: false})
     password:string;
 
+    @Column({nullable: true, default: null})
+    profileImageUrl?:string;
+
     @Column({nullable: true})
-    gender?:number;
+    refreshtoken?:string;
 
-    @Column({nullable: true, length: 40})
-    name?:string;
+    @Column({nullable: true, default: 0})
+    score?:string;
 
-    @Column({nullable: true, length: 40})
-    phoneNumber?:string;
-
-    @Column({nullable: true, length: 100})
-    livingAt?:string;
-
-    @Column({nullable: true, length: 40})
-    birthday?:string;
+    @CreateDateColumn()
+    livingAt:Date;
 
 }

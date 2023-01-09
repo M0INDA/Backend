@@ -46,4 +46,6 @@ FROM node:18-alpine As production
 COPY --chown=node:node --from=build /app/node_modules ./node_modules
 COPY --chown=node:node --from=build /app/dist ./dist
 
+# ENV CONFIG_TEST="HELLO!_CONFIG!"
+
 CMD [ "node", "dist/main.js" ]
