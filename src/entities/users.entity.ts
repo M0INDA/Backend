@@ -27,7 +27,7 @@ import {
     profileImageUrl?:string;
 
     @Column({nullable: true})
-    refreshtoken?:string;
+    refreshToken?:string;
 
     @Column({nullable: true, default: 0})
     score?:string;

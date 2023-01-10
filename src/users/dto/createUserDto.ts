@@ -19,4 +19,7 @@ export class CreateUserDto {
     @MaxLength(24)
     password:string ;
 
+    @IsString()
+    refreshToken?:string = 'null' ;
+
 }

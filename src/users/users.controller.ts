@@ -2,7 +2,7 @@ import { Controller, Get, Param, Query, Post, ValidationPipe, Body, UseFilters }
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/createUserDto'
 import { LoginUserDto } from '../auth/dto/loginUserDto'
-import { HttpExceptionFilter } from 'src/exception/exceptionfilter';
+import { HttpExceptionFilter } from '../http-exception.filter';
 
 
 @UseFilters(HttpExceptionFilter)
