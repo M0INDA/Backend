@@ -1,11 +1,9 @@
-import { Controller, Get, Param, Query, Post, ValidationPipe, Body, UseFilters } from '@nestjs/common';
+import { Controller, Get, Param, Query, Post, ValidationPipe, Body, UseFilters, HttpException, HttpCode, HttpStatus } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/createUserDto'
 import { LoginUserDto } from '../auth/dto/loginUserDto'
-import { HttpExceptionFilter } from 'src/exception/exceptionfilter';
 
 
-@UseFilters(HttpExceptionFilter)
 @Controller('users')
 export class UserController {
 
@@ -13,12 +11,23 @@ export class UserController {
         private readonly usersService:UsersService
     ){}
 
-    @Get() 
-    getEmail(
-        @Query('email') email: string,
-    ){
-        console.log(email)
-        return this.usersService.findOne(email);
+    @Post('checkEmail') 
+    async getEmail(
+        @Body('email') email: string,
+    ):Promise<boolean>{
+        let result = await this.usersService.findOne(email);
+        if(result) throw new HttpException('존재하는 이메일입니다.',HttpStatus.FORBIDDEN)
+        return true
+    }
+
+    @Post('checkNick')
+    async getNick(
+        @Body('nickname') nickName: string,
+    ):Promise<boolean>{
+        
+        let result = await this.usersService.findNick(nickName);
+        if(result) throw new HttpException('존재하는 닉네임입니다.',HttpStatus.FORBIDDEN)
+        return true
     }
 
     @Post('signup')
@@ -27,5 +36,10 @@ export class UserController {
     ){
         return this.usersService.signup(createUserDto);
     }
+
+    
+
+
+    
 
 }

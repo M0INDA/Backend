@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { HttpException ,HttpStatus, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { Users } from '../entities/users.entity';
 import { CreateUserDto } from './dto/createUserDto';
 import { UsersRepository } from './users.repository.js';
@@ -27,10 +27,19 @@ export class UsersService {
         })
     }
 
+    async findNick(nickName:string) : Promise<Users | null> {
+        let result = await this.usersReopsitory.findOne({
+            where: {
+                nickname:nickName
+            },
+        })
+        return result
+    }
+
     async signup(createUserDto:CreateUserDto) : Promise<Users>{
         const { email, password, nickname } = createUserDto;
 
-        if( !email || !password || !nickname ) throw new Error('회원가입 데이터 오류')
+        if( !email || !password || !nickname ) throw new HttpException('회원가입 데이터 오류',HttpStatus.FORBIDDEN)
 
         return await this.usersReopsitory.signup(createUserDto)
     }
