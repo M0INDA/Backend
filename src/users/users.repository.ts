@@ -18,4 +18,17 @@ export class UsersRepository extends Repository<Users> {
         }
         
     }
+
+    async updateRefreshToken(userId:string|number,refreshToken:string){
+        try {
+            // 랜덤문자열 후에 삭제해줘야함
+            if(typeof userId ==='string'){
+                userId = parseInt(userId);
+            }
+            return await this.update({ userId:userId },{ refreshToken:refreshToken })
+            
+        } catch (error) {
+            throw new HttpException('refreshToken update Error',404)
+        }
+    }
 }
