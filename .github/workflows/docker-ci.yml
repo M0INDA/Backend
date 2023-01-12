@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: ssh connect & production
+      - name: ssh connect & git
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
