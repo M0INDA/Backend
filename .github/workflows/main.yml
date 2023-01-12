@@ -20,7 +20,7 @@ jobs:
             sudo pm2 kill
             git remote update
             git checkout kwonga_mysql
-            git pull origin kwonga_mysql
+            git pull origin origin/kwonga_mysql
             npm install
             rm .env
             touch .env
