@@ -18,6 +18,8 @@ jobs:
           script: |
             cd project_dir
             sudo pm2 kill
+            git remote update
+            git checkout kwonga_mysql
             git pull origin kwonga_mysql
             npm install
             rm .env
