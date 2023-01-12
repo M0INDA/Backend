@@ -19,9 +19,10 @@ jobs:
             cd project_dir
             sudo pm2 kill
             git pull origin kwonga_mysql
-            npm i 
+            npm install
             rm .env
             touch .env
-            echo ${{ secrets.ENV_FILE }} >> .env
-            npm run bilid
+            cat << EOF >> .env
+            ${{ secrets.ENV_FILE }}
+            npm run build
             sudo pm2 start dist/main.js
