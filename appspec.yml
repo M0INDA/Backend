@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /home/ubuntu/project_dir
+permissions:
+  - object: /home/ubuntu/project_dir
+    owner: ubuntu
+    group: ubuntu
+    mode: 755
+hooks:
+  AfterInstall:
+    - location: scripts/after-deploy.sh
+      timeout: 180
+      runas: ubuntu
