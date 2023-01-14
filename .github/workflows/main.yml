@@ -16,10 +16,9 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd project_dir
-            git remote update
-            git checkout kwonga_mysql
-            git pull origin kwonga_mysql
+            rm -rf kwonga_mysql
+            git clone https://github.com/M0INDA/Backend/tree/kwonga_mysql.git
+            cd kwonga_mysql
             rm .env
             touch .env
             cat << EOF >> .env
