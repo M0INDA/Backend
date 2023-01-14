@@ -3,9 +3,9 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ubuntu/project_dir
+    destination: /home/ubuntu/Backend
 permissions:
-  - object: /home/ubuntu/project_dir
+  - object: /home/ubuntu/Backend
     owner: ubuntu
     group: ubuntu
     mode: 755
