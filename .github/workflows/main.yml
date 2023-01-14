@@ -24,8 +24,10 @@ jobs:
             npm install
             rm .env
             touch .env
+            touch .envzz
             cat << EOF >> .env
             ${{ secrets.ENV_FILE }}
             npm run build
             sudo pm2 start dist/main.js
+            
             
