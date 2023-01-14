@@ -22,7 +22,6 @@ jobs:
             git pull origin kwonga_mysql
             rm .env
             touch .env
-            touch .envzz
             cat << EOF >> .env
             ${{ secrets.ENV_FILE }}
             
