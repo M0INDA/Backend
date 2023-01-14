@@ -4,26 +4,3 @@ on:
   push:
     branches: [kwonga_mysql]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: ssh connect & git
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd project_dir
-            git remote update
-            git checkout kwonga_mysql
-            git pull origin kwonga_mysql
-            rm .env
-            touch .env
-            touch .envzz
-            cat << EOF >> .env
-            ${{ secrets.ENV_FILE }}
-            
-            
