@@ -19,10 +19,9 @@ jobs:
             rm -rf Backend
             git clone https://github.com/M0INDA/Backend
             cd Backend
-            rm .env
             touch .env
             cat << EOF >> .env
             ${{ secrets.ENV_FILE }}
-            npm run start:dev
+
             
             
