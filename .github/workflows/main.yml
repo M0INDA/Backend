@@ -28,3 +28,4 @@ jobs:
             ${{ secrets.ENV_FILE }}
             npm run build
             sudo pm2 start dist/main.js
+            
