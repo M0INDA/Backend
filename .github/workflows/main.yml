@@ -17,7 +17,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             rm -rf kwonga_mysql
-            git clone https://github.com/M0INDA/Backend/tree/kwonga_mysql.git
+            git clone https://github.com/M0INDA/Backend
             cd kwonga_mysql
             rm .env
             touch .env
