@@ -16,12 +16,13 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            rm -rf kwonga_mysql
+            rm -rf Backend
             git clone https://github.com/M0INDA/Backend
-            cd kwonga_mysql
+            cd Backend
             rm .env
             touch .env
             cat << EOF >> .env
             ${{ secrets.ENV_FILE }}
+            npm run start:dev
             
             
